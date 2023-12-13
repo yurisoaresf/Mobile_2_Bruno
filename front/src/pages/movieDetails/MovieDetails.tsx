@@ -6,6 +6,9 @@ import styles from './MovieDetailsStyle';
 
 
 const MovieDetails = ({route}:any) => {
+
+  
+
   const {item} = route.params
   const {product} = route.params
   return (

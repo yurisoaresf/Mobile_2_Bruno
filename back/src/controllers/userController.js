@@ -37,7 +37,7 @@ const userController = {
                 const secret = 'liahuybsflihasvfbolajiwefvhaoliwvyfv'
                 const token = await jsonWebToken.sign(req.body, secret)
                 console.log("Usario " + req.body.login + " Logado com sucesso" )
-                res.status(200).json({message: "Usuário logado", userData:{token: token, login: req.body.login, name: result.name}})
+                res.status(200).json({message: "Usuário logado", userData:{token: token, login: req.body.login, image: result.image}})
                 
             } else {
                 res.status(403).json({message: 'Credenciais inválidas'})

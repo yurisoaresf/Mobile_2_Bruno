@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Text, TextInput, Button, View, ScrollView, ToastAndroid} from 'react-native'
+import { Text, TextInput, Button, View, ScrollView, ToastAndroid,Image} from 'react-native'
 import styles from './CreateAccountStyle';
 import { Card} from 'react-native-elements';
 import Button2 from '../Components/Button';
@@ -8,6 +8,8 @@ import { useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import httpService from '../../httpService';
 import { Snackbar } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const CreateAccount = ({navigation}: any) => {
 
@@ -21,7 +23,8 @@ const CreateAccount = ({navigation}: any) => {
       setSnackbarVisible(true);
     }
     else  {
-      const user = {email,login,password}
+      console.log(image)
+      const user = {email,login,password, image}
       const result: any = await httpService.createUser(user)
       const data: any = await result.json()
       ToastAndroid.show(data.message, 5000)
@@ -29,17 +32,34 @@ const CreateAccount = ({navigation}: any) => {
      }  
   }
 
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      
+      setImage(result.assets[0].uri);
+    }
+  };
+
   const onSnackbarDismiss = () => {
     setSnackbarVisible(false);
   };
 
-  const [name,setName] = useState('')
   const [login,setLogin] = useState('')
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
   const [confirmPassword,setConfirmPassword] = useState('')
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [image, setImage] = useState(null);
 
   const goToPage = (path: any) => {
     navigation.navigate(path);
@@ -76,6 +96,8 @@ const CreateAccount = ({navigation}: any) => {
           <Text style={[styles.setTextColor, {fontFamily:'Benguiat'}]}>Confirmar Senha:</Text>
           <TextInput value = {confirmPassword}
           onChange={(event) => {setConfirmPassword(event.nativeEvent.text)}} secureTextEntry={true} style={[styles.input, {fontFamily:'Benguiat'}]}/>
+          <Button title="Selecione uma imagem da sua galeria" onPress={pickImage} />
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
           <Button2 onPress={()=> {
             onSubmit()
             

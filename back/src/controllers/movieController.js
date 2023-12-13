@@ -13,7 +13,7 @@ const movieController = {
        res.status(200).json(result)
     },
     getMovie: async (req,res) => { 
-        const result = await movieModel.findOne({code: req.params.code})
+        const result = await movieModel.findOne({name: req.params.name})
         res.status(200).json(result)
      },
     createMovie: async (req,res) => {

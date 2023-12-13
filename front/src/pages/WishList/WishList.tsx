@@ -1,17 +1,38 @@
 
-import React, { useState } from 'react'
-import { Text, ScrollView, ToastAndroid } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { Text, ScrollView, ToastAndroid, Image, View } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import styles from './WishListStyle';
+import storageService from '../../storageService'
 
 
+type User = {
+  login: string;
+  token: string;
+  image: string;
+}
 
 const WishList = ({route}: any) => {
+
+  useEffect(()=>{
+      
+    storageService.get('userData').then((userData: any) =>{     
+        setUserData(userData)     
+    })
+  }, [])
   const {wishList} = route.params
 
   const {setWishList} = route.params
 
   const [newWishList, setWishListRefresh] = useState(wishList)
+
+  
+
+  const[userData,setUserData] = useState<User>({
+    login: '',
+    token: '',
+    image: ''
+  });
 
   const openToast = (message: string) => {
     ToastAndroid.show(message, 3000);
@@ -25,8 +46,12 @@ const WishList = ({route}: any) => {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={{alignContent: 'center', alignItems: 'center'}}>
+        <Text style={styles.title}> Bem vindo a sua Lista de desejo {userData.login}</Text>
+        {userData.image && <Image source={{ uri: userData.image }} style={styles.image} />}
+      </View>    
       {newWishList.length === 0 ? (
-        <Text style={{ textAlign: 'center', marginTop: 20, color: "white"}}>Sua wishlist está vazia.</Text>
+        <Text style={styles.empty}>Sua wishlist está vazia.</Text>
       ) : (
         newWishList.map((movie: any, i: number) => {
           return (
@@ -52,6 +77,7 @@ const WishList = ({route}: any) => {
           );
         })
       )}
+      
     </ScrollView>
     );
   }

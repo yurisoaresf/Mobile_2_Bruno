@@ -18,6 +18,7 @@ type Message = {
 type User = {
     login: string;
     token: string;
+    image: string;
 }
 
 const Chat = () => {
@@ -64,6 +65,7 @@ const Chat = () => {
     const[userData,setUserData] = useState<User>({
         login: '',
         token: '',
+        image: ''
       });
     
   return (
