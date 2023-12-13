@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { FAB } from '@rneui/themed'
+import storageService from '../../storageService'
 
 
 type Movie = {
@@ -22,7 +23,11 @@ type Movie = {
 };
     
     
-
+type User = {
+    login: string;
+    token: string;
+    image: string;
+}
 
 
 const Home = ({navigation,wishList,setWishList} : any) => {
@@ -31,9 +36,18 @@ const Home = ({navigation,wishList,setWishList} : any) => {
     const [data, setData] = useState<Movie[]>([]);
     const [favorite,setFavorite] = useState(false);
 
+      const callStorage = async ()=> {
+         const userData = await storageService.get('userData')
+         return userData.token
+      };
+
     const getMovies = async () => {
+       const token = await callStorage();
         try {
-          const response = await fetch('http://192.168.0.10:3000/api/movie');
+            
+          const response = await fetch('http://192.168.0.10:3000/api/movie', {headers: {
+            'authorization': "Bearer " + token
+          }} );
           const json = await response.json();
           setData(json);
         } catch (error) {
@@ -42,9 +56,9 @@ const Home = ({navigation,wishList,setWishList} : any) => {
           setLoading(false);
         }
       };
-    
+      
       useEffect(() => {
-        getMovies();
+        getMovies()
       }, []);
 
     const openToast = (message: string) => {

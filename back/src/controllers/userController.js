@@ -4,7 +4,12 @@ const userModel = require('../models/userModel')
 const jsonWebToken = require('jsonwebtoken')
 const bcrypt = require("bcrypt");
 
+
+
+
 const userController = {
+
+    
 
     getUsers: async (req,res) => {
         const result = await userModel.find({})

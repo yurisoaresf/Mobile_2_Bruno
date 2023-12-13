@@ -37,14 +37,13 @@ const Chat = () => {
         
         storageService.get('userData').then((userData: any) =>{
             console.log(userData)
-            setUserData(userData)
+            setUserData(userData)  
+        })
 
-            return () => {
-                // Limpar recursos quando o componente for desmontado
-                socket.disconnect();
-              };
-          
-    })
+        return () => {
+            // Limpar recursos quando o componente for desmontado
+            socket.disconnect();
+          };
     }, [])
 
     const sendMessage = () => {
