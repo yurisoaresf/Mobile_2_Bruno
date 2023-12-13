@@ -25,26 +25,34 @@ const WishList = ({route}: any) => {
 
   return (
     <ScrollView style={styles.container}>
-      {
-        newWishList.map((movie:any, i: number) => {
-          return(
-            <Card theme={{ colors: { primary: '#000000' } }}>
+      {newWishList.length === 0 ? (
+        <Text style={{ textAlign: 'center', marginTop: 20, color: "white"}}>Sua wishlist está vazia.</Text>
+      ) : (
+        newWishList.map((movie: any, i: number) => {
+          return (
+            <Card theme={{ colors: { primary: '#000000' } }} key={i}>
               <Card.Title>
                 <Text style={styles.card}>{movie.name}</Text>
               </Card.Title>
-                <Card.Divider/>
-              <Card.Image style={{resizeMode:'contain', marginStart:50, width: 200, height: 300, alignContent: 'center', alignItems:'center'}} source={{uri: movie.image}}/>
-              <Button buttonStyle={styles.buttonStyle}  onPress={() => {
-                    openToast("Filme removido da wishlist")
-                    setWishListRefresh(movieItem => movieItem.filter(item => {return item.name !== movie.name}))
-                    setWishList(movieItem => movieItem.filter(item => {return item.name !== movie.name}))
-                  }} title={<CustomTitle />}>
-              </Button>     
-            </Card>  
-
-            )
-          })}   
-      </ScrollView>
+              <Card.Divider />
+              <Card.Image
+                style={{ resizeMode: 'contain', marginStart: 50, width: 200, height: 300, alignContent: 'center', alignItems: 'center' }}
+                source={{ uri: movie.image }}
+              />
+              <Button
+                buttonStyle={styles.buttonStyle}
+                onPress={() => {
+                  openToast('Filme removido da wishlist');
+                  setWishListRefresh((movieItem) => movieItem.filter((item) => item.name !== movie.name));
+                  setWishList((movieItem) => movieItem.filter((item) => item.name !== movie.name));
+                }}
+                title={<CustomTitle />}
+              />
+            </Card>
+          );
+        })
+      )}
+    </ScrollView>
     );
   }
 export default WishList

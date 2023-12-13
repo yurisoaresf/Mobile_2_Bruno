@@ -53,14 +53,19 @@ const Login = ({navigation}: any) => {
         <Image style={{width:400, height: 400, resizeMode: 'contain'}} source={require('../../../assets/images/pngegg.png')}/>
         </View>
         <Text style={[styles.setTextColor, {fontFamily: 'Benguiat'}]}>Login</Text>
-        <TextInput style={[styles.input, {fontFamily: 'Benguiat'}]}/>
+        <TextInput value={login}
+          onChange={(event) => {setLogin(event.nativeEvent.text)}}  style={[styles.input, {fontFamily: 'Benguiat'}]}/>
         <Text style={[styles.setTextColor, {fontFamily: 'Benguiat'}]}>Password</Text>
-        <TextInput secureTextEntry={true} style={[styles.input, {fontFamily: 'Benguiat'}]}/>
+        <TextInput value={password}
+          onChange={(event) => {setPassword(event.nativeEvent.text)}}  secureTextEntry={true} style={[styles.input, {fontFamily: 'Benguiat'}]}/>
         <View style={styles.createForgotLink}>
           <Text onPress={()=> (goToPage("CreateAccount"))} style={[styles.link,{fontFamily: 'Benguiat'}]}>Create Account</Text>
           <Text onPress={()=> (goToPage("ForgotPassword"))} style={[styles.link,{fontFamily: 'Benguiat'}]}>Forgot Password</Text> 
         </View>
-        <Button2 onPress={()=> (goToPage("Home"))} labelButton="Entrar"></Button2>
+        <Button2 onPress={()=>
+          { 
+            onSubmit()
+          }} labelButton="Entrar"></Button2>
         <StatusBar barStyle={'light-content'}/>
       </View>
 

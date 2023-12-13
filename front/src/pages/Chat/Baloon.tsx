@@ -45,25 +45,21 @@ const Balloon = ({message, currentUser}: any) => {
     const bubbleWrapper = sent
         ? styles.bubbleWrapperSent
         : styles.bubbleWrapperReceived;
-
-        if(message) {
-            return(
-                <View style={{marginBottom: '2%'}}>
-                    <View style={{...styles.bubbleWrapper, ...bubbleWrapper}}>
-                        <View style={{...styles.balloon, ...balloonColor}}>
-                            <Text>
-                                {message.sentBy}
-                            </Text>
-                            <Text style={{...styles.balloonText, ...balloonTextColor}}>
-                                {message.content}
-                            </Text>
-                        </View>
+        return(
+            <View style={{marginBottom: '2%'}}>
+                <View style={{...styles.bubbleWrapper, ...bubbleWrapper}}>
+                    <View style={{...styles.balloon, ...balloonColor}}>
+                        <Text>
+                            {message.sentBy}
+                        </Text>
+                        <Text style={{...styles.balloonText, ...balloonTextColor}}>
+                            {message.content}
+                        </Text>
                     </View>
                 </View>
-            )
-        } else {
-            return <></>
-        }
+            </View>
+        )
+    
 }
 
 export default Balloon

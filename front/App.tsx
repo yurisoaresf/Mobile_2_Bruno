@@ -18,7 +18,7 @@ import { useFonts } from 'expo-font';
 const App = (): JSX.Element => {
   const Stack = createNativeStackNavigator();
   const [wishList, setWishList] = useState([]);
-  
+ 
 
   return (
     <NavigationContainer ref={navigationRef}>

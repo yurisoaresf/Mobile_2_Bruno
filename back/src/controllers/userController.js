@@ -17,6 +17,7 @@ const userController = {
 
     createUser: async (req,res) => {
         await userModel.create(req.body)
+        console.log("usuario criado com sucesso")
         res.status(201).json({message: "Usuário criado com sucesso"})
 
     },
@@ -35,6 +36,7 @@ const userController = {
             if(result){
                 const secret = 'liahuybsflihasvfbolajiwefvhaoliwvyfv'
                 const token = await jsonWebToken.sign(req.body, secret)
+                console.log("Usario " + req.body.login + " Logado com sucesso" )
                 res.status(200).json({message: "Usuário logado", userData:{token: token, login: req.body.login, name: result.name}})
                 
             } else {

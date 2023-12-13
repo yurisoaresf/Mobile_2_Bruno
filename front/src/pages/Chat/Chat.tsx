@@ -7,32 +7,78 @@ import { TouchableOpacity } from 'react-native'
 import Balloon from './Baloon'
 import styles from './ChatStyles'
 import storageService from '../../storageService'
+import { io, Socket }  from 'socket.io-client'
 
+type Message = {
+    content: string;
+    sentBy: string;
 
+};
+
+type User = {
+    login: string;
+    token: string;
+}
 
 const Chat = () => {
+    
+    
+  
+    
     useEffect(()=>{
+        const socket : Socket = io("http://192.168.0.10:3000");
+        setSocket(socket)
+
+        socket.on("connection", () => {
+            console.log("Connected to the server!");
+        });
+
+        
         storageService.get('userData').then((userData: any) =>{
             console.log(userData)
             setUserData(userData)
+
+            return () => {
+                // Limpar recursos quando o componente for desmontado
+                socket.disconnect();
+              };
+          
     })
     }, [])
-    const sendMessage = () => {}
+
+    const sendMessage = () => {
+  
+       socketState.emit('chat message', text); 
+       const newMessage: Message = {
+        content: text,
+        sentBy: userData.login,
+       };
+       setChat({ ...chat, messages: [...chat.messages,newMessage] });
+       setText("")      
+    }
+
+    const[socketState,setSocket] = useState(null)
     const content: any = {messages: [] }
     const [text, setText] = useState('')
-    const[chat,setChat] = useState(content)
-    const[userData,setUserData] = useState({name: ''})
+    const[chat,setChat] = useState<Message[]>(content)
+    const[userData,setUserData] = useState<User>({
+        login: '',
+        token: '',
+      });
+    
   return (
     <Fragment>
         <ScrollView>
         {
             chat.messages.length > 0 ?
             chat.messages.map((m:any, index: number) => (
-                <Balloon key={index} message={m} currentUser={userData.name} />
+                <Balloon key={index} message={m} currentUser={userData.login} />
+                
             )): 
             <Text style={{marginTop: '5%', alignSelf:'center', color: '#848484'}}>
                 Sem mensagens no momento
             </Text>
+            
         }
 
 
