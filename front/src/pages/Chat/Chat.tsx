@@ -30,8 +30,8 @@ const Chat = () => {
         const socket : Socket = io("http://192.168.0.10:3000");
         setSocket(socket)
 
-        socket.on("connection", () => {
-            console.log("Connected to the server!");
+        socket.on("chat message", msg  => {
+            setChat({ ...chat, messages: [...chat.messages,msg] });
         });
 
         

@@ -1,6 +1,7 @@
 'use strict'
 
 const userModel = require('../models/userModel')
+const wishlistModel = require('../models/wishlistModel')
 const jsonWebToken = require('jsonwebtoken')
 const bcrypt = require("bcrypt");
 
@@ -39,6 +40,11 @@ const userController = {
             image
           });
         await userModel.create(user)
+        const wishlist = new wishlistModel({
+            owner: login,
+            movies: []
+        })
+        await wishlistModel.create(wishlist)
         console.log("usuario criado com sucesso")
         res.status(201).json({message: "Usuário criado com sucesso"})
 
