@@ -14,7 +14,7 @@ import * as ImagePicker from 'expo-image-picker';
 const CreateAccount = ({navigation}: any) => {
 
   const onSubmit = async () => {
-    if (email === ''|| login === '' || password === '' || confirmPassword === '' ){
+    if (email === ''|| login === '' || password === '' || confirmPassword === '' ||image === null ){
       setErrorMessage("Todos os campos devem ser preenchidos");
       setSnackbarVisible(true);
     }
@@ -96,8 +96,9 @@ const CreateAccount = ({navigation}: any) => {
           <Text style={[styles.setTextColor, {fontFamily:'Benguiat'}]}>Confirmar Senha:</Text>
           <TextInput value = {confirmPassword}
           onChange={(event) => {setConfirmPassword(event.nativeEvent.text)}} secureTextEntry={true} style={[styles.input, {fontFamily:'Benguiat'}]}/>
-          <Button title="Selecione uma imagem da sua galeria" onPress={pickImage} />
-          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          
+          <Button2 onPress={pickImage} labelButton="Selecione uma imagem "></Button2>
+          {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, alignContent: 'center', alignItems: 'center',resizeMode: 'contain', marginTop: 10, marginLeft: 45,  borderRadius: 200 / 2}} />}
           <Button2 onPress={()=> {
             onSubmit()
             

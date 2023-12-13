@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View, TextInput, Button, Image, StatusBar } from 'react-native';
 import Login from './src/pages/login/Login';
 import CreateAccount from './src/pages/CreateAccount/CreateAccount';
-import ForgotPassword from './src/pages/ForgotPassword/ForgotPassword';
 import Chat from './src/pages/Chat/Chat';
 import Home from './src/pages/Home/Home';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -51,7 +50,6 @@ const App = (): JSX.Element => {
 
       </Stack.Screen>
         <Stack.Screen options={{title: "Create Account", headerTintColor:"#000000", headerTitleAlign:"center"}} name="CreateAccount" component={CreateAccount}></Stack.Screen>
-        <Stack.Screen options={{title: "Forgot Password", headerTintColor:"#000000", headerTitleAlign:"center"}} name="ForgotPassword" component={ForgotPassword}></Stack.Screen>
         <Stack.Screen options={{title: "Wishlist", headerTintColor:"#000000", headerBackTitleVisible: false, headerBackVisible: true}} name="WishList" component={WishList}></Stack.Screen>
         <Stack.Screen options={{title: "Movie Details", headerTintColor:"#000000", headerBackTitleVisible: false, headerBackVisible: true}} name="MovieDetails" component={MovieDetails}></Stack.Screen>
         <Stack.Screen options={{headerTitleAlign:"center"}} name="Chat" component={Chat}></Stack.Screen>

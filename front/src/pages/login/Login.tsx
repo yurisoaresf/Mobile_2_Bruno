@@ -60,7 +60,6 @@ const Login = ({navigation}: any) => {
           onChange={(event) => {setPassword(event.nativeEvent.text)}}  secureTextEntry={true} style={[styles.input, {fontFamily: 'Benguiat'}]}/>
         <View style={styles.createForgotLink}>
           <Text onPress={()=> (goToPage("CreateAccount"))} style={[styles.link,{fontFamily: 'Benguiat'}]}>Create Account</Text>
-          <Text onPress={()=> (goToPage("ForgotPassword"))} style={[styles.link,{fontFamily: 'Benguiat'}]}>Forgot Password</Text> 
         </View>
         <Button2 onPress={()=>
           { 
