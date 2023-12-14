@@ -20,7 +20,7 @@ const MovieDetails = ({route}:any) => {
   const getMovie = async () => {
     try {
       const {item} = route.params
-      const request =  'http://192.168.0.10:3000/api/movie/' + item.name
+      const request =  'http://10.5.4.108:3000/api/movie/' + item.name
       const response = await fetch(request);
       const json = await response.json();
       console.log(json)

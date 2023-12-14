@@ -45,7 +45,7 @@ const Home = ({navigation,wishList,setWishList} : any) => {
        const token = await callStorage();
         try {
             
-          const response = await fetch('http://192.168.0.10:3000/api/movie', {headers: {
+          const response = await fetch('http://10.5.4.108:3000/api/movie', {headers: {
             'authorization': "Bearer " + token
           }} );
           const json = await response.json();

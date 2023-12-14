@@ -27,12 +27,21 @@ const Chat = () => {
   
     
     useEffect(()=>{
-        const socket : Socket = io("http://192.168.0.10:3000");
+        const socket : Socket = io("http://10.5.4.108:3000");
         setSocket(socket)
 
         socket.on("chat message", msg  => {
-            setChat({ ...chat, messages: [...chat.messages,msg] });
+            //const novo = [..., msg];
+
+            // Atualiza o estado do array
+            //setChat(novo);
+            setChat((prevChat) => ({
+                ...prevChat,
+                messages: [...prevChat.messages, msg],
+              }));
         });
+
+        
 
         
         storageService.get('userData').then((userData: any) =>{
@@ -47,13 +56,14 @@ const Chat = () => {
     }, [])
 
     const sendMessage = () => {
-  
-       socketState.emit('chat message', text); 
-       const newMessage: Message = {
-        content: text,
-        sentBy: userData.login,
-       };
-       setChat({ ...chat, messages: [...chat.messages,newMessage] });
+        const newMessage: Message = {
+            content: text,
+            sentBy: userData.login,
+           };
+       socketState.emit('chat message', newMessage); 
+       
+       //setChat({ ...chat, messages: [...chat.messages,newMessage] });
+       console.log(chat)
        setText("")      
     }
 
